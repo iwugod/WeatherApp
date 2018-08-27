@@ -30,12 +30,15 @@ class SearchWeather extends React.Component {
             weatherCondition:'',
             weatherIcon:'',
             sunRise:0,
+            searchCountry:'',
             redirect:false
         }
 
         this.setWeather = this.setWeather.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
+        
     }
 
     componentDidMount() {
@@ -84,26 +87,53 @@ class SearchWeather extends React.Component {
         });
     }
 
-    handleSearch(event){
-        if(event.t){
-
-        }
-        this.genarateUrlCountry();
+    handleInputChange(event) {
+        this.setState({
+            searchCountry:event.target.value
+        })
     }
+
+   
 
     genarateUrlCountry(country) {
         return "http://api.openweathermap.org/data/2.5/forecast?q=" + country + "&appid=a19d5bef8a72d35cd43918774f1c6833"
+    }
+
+    handleSearch(event){
+      
+            const countryVal = this.state.searchCountry;
+            const country = this.genarateUrlCountry(countryVal);
+            //using fetch to get all the data
+            fetch(country)// fetch data from url
+            .then(result => {
+                return result.json()
+            }).then(response =>{
+                this.setState({
+                    id:response.id,
+                    latitude: response.coord.lat,
+                    longitude: response.coord.lon,
+                    region:response.name,
+                    country:response.sys.country,
+                    temperature:response.main.temp,
+                    weatherDescription:response.weather["0"].description,
+                    weatherCondition:response.weather["0"].main,
+                    weatherIcon:response.weather["0"].icon,
+                    sunRise:response.sys.sunrise,
+                });
+            })
+            console.log(this.state);
+        //event.preventDefault();
     }
 
     genarateUrl(lat, lng) {
         return "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lng + "&appid=a19d5bef8a72d35cd43918774f1c6833"
     }
 
-    handleChange(event) {
-        let change = {}
-        change[event.target.name] = event.target.value
-        this.setState(change)
-    }
+    // handleChange(event) {
+    //     let change = {}
+    //     change[event.target.name] = event.target.value
+    //     this.setState(change)
+    // }
 
     handleSubmit(event) {
         navigator.geolocation.getCurrentPosition(this.setWeather);
@@ -117,19 +147,20 @@ class SearchWeather extends React.Component {
             <div className="search-box">
 
                 <div className="search-page">
-                    <form className="search-form" actions={this.props.actions}>
+                    <form className="search-form" actions={this.props.actions} >
                         <label className="search-location">
-                            <input type="text" placeholder="City" />
+                            <input type="text" placeholder="City" value={this.state.searchCountry} onChange={this.handleInputChange} />
                         </label>
                         <input type="submit" value="Submit" onClick={this.handleSearch}/>
                     </form>
+                    
                     <div className="more-option">
                         <span className="alt-option">
                             or
                         </span>
                         <Link to={{pathname:`/weather/${this.state.id}`, props:{param:this.state}}}>
                         <div className="btn-locate">
-                            <input type="button" value="use my current position" className="user-location" onClick={this.handleSubmit} onChange={this.handleChange.bind(this)}/>
+                            <input type="button" value="use my current position" className="user-location" onClick={this.handleSubmit} />
                         </div>
                         
                         </Link>
