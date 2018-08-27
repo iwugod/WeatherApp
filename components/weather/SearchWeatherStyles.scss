@@ -1,0 +1,27 @@
+
+.search-box {
+    background: #ff836d;
+    padding: 100px;
+    text-align: center;
+
+    .search-page {
+        background: #fff;
+        padding: 100px;
+    }
+}
+
+.time-grid {
+    background: #fd776b;
+    @extend .search-box;
+
+    .result-page {
+        background: #fff;
+        padding: 100px;
+        text-align: left;
+        .region {
+            font-size: 32px;
+            font-weight: 400;
+        }
+       
+    }
+}

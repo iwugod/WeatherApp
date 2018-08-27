@@ -1,0 +1,122 @@
+.photo-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 30px;
+
+    .frame-wrap {
+        flex: 1;
+        margin: 30px;
+        position: relative;
+        font-size: 20px;
+        text-decoration: none;
+        color:#000;
+        
+        .image-sm {
+            text-align: center;
+
+            img {
+               
+                border:2px solid #fff;
+                box-shadow: 10px 10px 5px #ccc;
+                -moz-box-shadow: 10px 10px 5px #ccc;
+                -webkit-box-shadow: 10px 10px 5px #ccc;
+                -khtml-box-shadow: 10px 10px 5px #ccc;
+            }
+        }
+
+        .user-acts {
+            max-width: 80%;
+            margin: 0 auto;
+
+            .caption-txt{
+                text-align: center;
+                font-size: 25px;
+            }
+
+            .img-likes {
+                padding-bottom: 20px;
+            }
+        }
+
+        .break-line {
+            display: block;
+            height: 1px;
+            width: 80%;
+            margin: 0 auto;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #eee;
+        }
+
+        .img-overlay {
+            height: 300px;
+            width:305px;
+            position: absolute;
+            top: 0;
+            left: 20px;
+            // right: 0;
+
+            .btn-more {
+                display: none;
+                width: 150px;
+                margin: 0 auto;
+            }
+
+            &:hover {
+                background: #ccc;
+                opacity: 0.5;
+                filter: alpha(opacity=50);
+                border-radius: 10px;
+
+                .btn-more {
+                    display: block;
+                    text-align: center;
+                    font-size: 50px;
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    top: 40%;
+                    border: 1px solid #000;
+                    border-radius: 10px;
+                }
+            }
+        }
+    }
+
+    &.single {
+        border: 1px solid #eee;
+
+        .frame-wrap{
+            display: flex;
+            justify-content: space-between;
+
+            .image-lg {
+                flex: 2;
+    
+                img {
+                    width: 100%;
+                    height: auto;
+                }
+            }
+
+            .user-actions {
+                flex: 1;
+                padding: 0 30px;
+
+                .caption-txt {
+                    font-size: 35px;
+                }
+
+                .img-likes {
+                    border: 2px solid #D24D57;
+
+                    
+                }
+            }
+        }
+
+    }
+}

@@ -1,0 +1,22 @@
+
+*, *:before, *:after {
+	margin:0; padding:0; box-sizing:border-box; 
+}
+body {
+	margin: 0!important;
+	padding: 0!important;
+}
+.wrapper {
+	width:90%;
+	margin:0 auto;
+}
+
+.top-section {
+	display: flex;
+	align-items: center;
+	background: #e64c32;
+	.header {
+		flex: 1;
+		color: #fff;
+	}
+}
