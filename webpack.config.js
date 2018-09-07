@@ -1,6 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
-
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
   module.exports = {
     mode: 'development',
@@ -17,12 +17,7 @@ var webpack = require('webpack');
       historyApiFallback: true
     },
 
-  // optimization: {
-  //    splitChunks: {
-  //      chunks: 'all'
-  //    }
-  // },
-
+ 
   plugins: [
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
@@ -30,7 +25,7 @@ var webpack = require('webpack');
   ],
 
  resolve: {
-    extensions: ['.js', 'scss', 'sass', 'css']
+    extensions: ['.webpack.js', '.web.js', '.jsx', '.js', '.scss', '.css', '.eot', '.svg', '.ttf', '.woff']
   },
   module: {
     rules: [
@@ -39,14 +34,25 @@ var webpack = require('webpack');
         options: { presets: ['react', 'es2015'] },
          exclude: '/node_modules/'
        },
-     {
-      test: /\.scss$/,
-      use: [
-          "style-loader", // creates style nodes from JS strings
-          "css-loader", // translates CSS into CommonJS
-          "sass-loader" // compiles Sass to CSS, using Node Sass by default
-      ]
-     }
+      {
+        test: /\.scss$/,
+        loader: 'style-loader!css-loader!sass-loader'
+      },
+      {
+        test: /\.css$/,
+        loader: 'style-loader!css-loader'
+      },
+      {
+        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+        use: [{
+            loader: 'file-loader',
+            options: {
+                name: '[name].[ext]',
+                outputPath: 'fonts/'
+            }
+        }]
+    }
+    
     ]
   }
 

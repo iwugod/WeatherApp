@@ -1,3 +1,13 @@
+@import "./scss/var";
+@import "./scss/mixins";
+
+[class^="wi-"] {
+    font-size: 50px;
+}
+
+.error-msg {
+    color: red;
+}
 
 .search-box {
     background: #ff836d;
@@ -7,21 +17,181 @@
     .search-page {
         background: #fff;
         padding: 100px;
+
+        .search-form {
+            width: 500px;
+            margin: 0 auto;
+            padding: 10px;
+
+            .search-location {
+                display: flex;
+                justify-content: center;
+                border-bottom: 1px solid #ab9f9f;
+                position: relative;
+
+                input {
+                    border: none;
+                    width: 94%;
+                    text-align: center;
+                    font-size: 30px;
+
+                    &:active {
+                        border: none;
+                    }
+                }
+
+                .go-btn {
+                    background-image: url("../icons/baseline-search-24px.svg");
+                    min-height: 30px;
+                    min-width: 30px;
+                    display: block;
+                    background-repeat: no-repeat;
+                    cursor: pointer;
+                    position: absolute;
+                    right: 0;
+                }
+            }
+        }
+
+        .more-option {
+            @extend .search-form;
+
+            .geo-btn {
+                color: #3e3333;
+                text-decoration: none;
+            }
+        }
     }
 }
 
-.time-grid {
-    background: #fd776b;
+.search-result {
     @extend .search-box;
+    background: #fd776b;
 
-    .result-page {
+    .wrap-result {
         background: #fff;
-        padding: 100px;
-        text-align: left;
-        .region {
-            font-size: 32px;
-            font-weight: 400;
+        color: $primaryColor;
+        padding: 70px 30px;
+
+        .current-date {
+            text-align: left;
+            font-size: 30px;
+            line-height: 30px;
+            font-family: $mainFontFamily;
+            padding: 20px 0;
         }
-       
+
+        .result-top {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+
+            .region-wrap {
+                text-align: left;
+                flex: 2;
+
+                .region {
+                    font-size: 32px;
+                    font-weight: 400;
+                    font-family: $mainFontFamily;
+                }
+            }
+        }
+
+        .wrap-print {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+
+            @include respond-to(mobile) {
+                flex-direction: column;
+            }
+        }
+
+        .current-weather {
+            display: block;
+            text-align: left;
+
+            .weather-props {
+                min-width: 250px;
+
+                .description {
+                    padding: 20px 0;
+                    font-size: 20px;
+                    font-family: $mainFontFamily;
+                    line-height: 1em;
+                }
+
+                .temp {
+                    @extend .description;
+                    font-size: 4em;
+                    color: #fd776b;
+                }
+
+                .temp-icon {
+                    display: flex;
+
+                    i {
+                        padding-left: 30px;
+                        font-size: 70px;
+                        color: #fd776b;
+                    }
+                }
+            }
+        }
+    }
+
+    .fahrenheit {
+        background-image: url("../icons/baseline-toggle_off-24px.svg");
+        min-height: 30px;
+        min-width: 30px;
+        display: block;
+        background-repeat: no-repeat;
+        cursor: pointer;
+    }
+
+    .celcius {
+        background-image: url("../icons/baseline-toggle_on-24px.svg");
+        min-height: 30px;
+        min-width: 30px;
+        display: block;
+        background-repeat: no-repeat;
+        cursor: pointer;
+    }
+
+    .back-btn {
+        background-image: url("../icons/baseline-arrow_back-24px.svg");
+        min-height: 30px;
+        min-width: 30px;
+        display: block;
+        background-repeat: no-repeat;
+        cursor: pointer;
+        margin-top: 5px;
+    }
+}
+
+@include respond-to(mobile) {
+    .wrapper {
+        width: 100%;
+    }
+
+    .top-section {
+        margin-bottom: 30px;
+    }
+
+    .search-box {
+        padding: 10px;
+    }
+
+    .search-page {
+        padding: 15px !important;
+
+        .search-form {
+            width: 100% !important;
+
+            .go-btn {
+                bottom: 0;
+            }
+        }
     }
 }
